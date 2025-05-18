@@ -20,7 +20,7 @@ TFG-football-metrics/
 1. Clona el repositorio:
 
    ```bash
-   git clone https://github.com/tu-usuario/TFG-football-metrics.git
+   git clone https://github.com/roberglz/TFG-football-metrics.git
    cd TFG-football-metrics
    ```
 2. Crea un entorno virtual (OPCIONAL):
