@@ -21,7 +21,7 @@ TFG-football-metrics/
 
    ```bash
    git clone https://github.com/tu-usuario/TFG-football-metrics.git
-   cd analisis-rendimiento-futbol
+   cd TFG-football-metrics
    ```
 2. Crea un entorno virtual (OPCIONAL):
 
