@@ -5,12 +5,25 @@ Este repositorio propone una interfaz gráfica para calcular y visualizar métri
 ## Estructura del proyecto
 
 ```
-TFG-football-metrics/
-├─ app.py                  # Script principal de Streamlit
-├─ requirements.txt        # Lista de dependencias
-├─ datos/                  # Archivos JSONL o CSV de partidos
-├─ modulos/                # Funciones de cálculo de métricas
-└─ scripts/                # Scripts de procesamiento batch
+analisis-rendimiento-futbol/
+│
+├─ app.py                        
+├─ requirements.txt
+│
+├─ datos/                       
+│
+├─ metricas/                      
+│   ├─ potencia_metabolica.py
+│   ├─ ritmo_de_juego.py
+│   ├─ cambio_de_direcciones.py
+│   ├─ distancia_aceleraciones.py
+│   ├─ distancia_umbrales_estandar.py
+│   └─ distancia_umbrales_relativos.py
+│
+└─ servicios/                    
+    ├─ __init__.py
+    └─ procesa_partidos.py       
+
 ```
 
 ## Instalación

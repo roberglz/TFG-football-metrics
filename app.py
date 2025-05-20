@@ -1,11 +1,51 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+from servicios.procesa_partidos import listar_partidos, cargar_partido, calcular_metricas
+import os
 
 
+st.title("📈 Visualizador de Métricas Físicas por Partido")
 
-st.set_page_config(page_title="Prueba", layout="wide")
-st.title("Esto es la prueba del título")
+# ----- Sidebar -----
+partidos = listar_partidos('datos')
+nombres = [os.path.basename(p) for p in partidos]
+sel = st.sidebar.selectbox("Partido", ["Seleccione un partido..."] + nombres)
+
+# Checkboxes de métricas
+st.sidebar.markdown("**Elige métricas a calcular**")
+opts = {
+    'potencia':     st.sidebar.checkbox("Potencia metabólica"),
+    'ritmo':        st.sidebar.checkbox("Ritmo de juego"),
+    'cambios':      st.sidebar.checkbox("Cambios de dirección"),
+    'aceleraciones':st.sidebar.checkbox("Distancia por aceleraciones"),
+    'umbral_est':   st.sidebar.checkbox("Umbrales estándar"),
+    'umbral_rel':   st.sidebar.checkbox("Umbrales relativos"),
+}
+# filtramos solo las elegidas
+seleccion = [k for k,v in opts.items() if v]
+
+# Botón de cálculo
+if st.sidebar.button("Calcular métricas"):
+    if sel == "<elige>":
+        st.warning("Selecciona un partido primero.")
+    elif not seleccion:
+        st.warning("Marca al menos una métrica.")
+    else:
+        ruta = partidos[nombres.index(sel)]
+        data = cargar_partido(ruta)
+        resultados = calcular_metricas(data, seleccion)
+
+        # Mostrar cada DataFrame y su gráfico
+        for clave, df in resultados.items():
+            st.subheader(f"Métrica: **{clave}**")
+            st.dataframe(df)
+
+            # Ejemplo de gráfica, adapta por cada métrica:
+            if not df.empty:
+                # tomamos la primera columna numérica que no sea playerId
+                cols = [c for c in df.columns if c != 'playerId']
+                st.bar_chart(df.set_index('playerId')[cols[0]])
+else:
+    st.info("Configura partido y métricas, luego pulsa _Calcular métricas_.")
 
 
