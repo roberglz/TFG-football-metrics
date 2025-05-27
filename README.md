@@ -1,4 +1,4 @@
-# Interfaz de usuario
+# Visualizador de métricas físicas 🧠
 
 Este repositorio propone una interfaz gráfica para calcular y visualizar métricas físicas de partidos de fútbol, utilizando datos de tracking y funciones de análisis en Python.
 
