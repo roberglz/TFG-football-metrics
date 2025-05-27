@@ -2,4 +2,5 @@ datos
 metricas/__pycache__/
 servicios/__pycache__/
 interfaz/__pycache__/
-
+utils/__pycache__/
+config/dicc_jugadores.json

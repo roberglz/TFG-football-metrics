@@ -1,0 +1,8 @@
+{
+  "potencia": "W/kg",
+  "ritmo": "m/min",
+  "cambios": "°",
+  "aceleraciones": "m/s²",
+  "umbral_est": "m",
+  "umbral_rel": "m"
+}

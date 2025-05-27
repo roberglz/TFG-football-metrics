@@ -27,7 +27,7 @@ def construir_sidebar():
         seleccion.append("ritmo")
     if st.sidebar.checkbox("Cambios de dirección"):
         seleccion.append("cambios")
-    if st.sidebar.checkbox("Distancia por aceleraciones"):
+    if st.sidebar.checkbox("Distancia en rangos de aceleraciones"):
         seleccion.append("aceleraciones")
     if st.sidebar.checkbox("Umbrales estándar"):
         seleccion.append("umbral_est")

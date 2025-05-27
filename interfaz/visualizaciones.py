@@ -1,41 +1,22 @@
-import streamlit as st
-import pandas as pd
-
-def mostrar_potencia(df):
-    st.subheader("Potencia metabólica")
-    st.dataframe(df)
-
-def mostrar_ritmo(df):
-    st.subheader("Ritmo de juego")
-    st.dataframe(df)
-
-def mostrar_cambios(df):
-    st.subheader("Cambios de dirección")
-    st.dataframe(df)
-
-def mostrar_aceleraciones(df):
-    st.subheader("Distancia por aceleraciones")
-    st.dataframe(df)
-
-def mostrar_umbral_est(df):
-    st.subheader("Distancia por umbrales estándar")
-    st.dataframe(df)
-
-def mostrar_umbral_rel(df):
-    st.subheader("Distancia por umbrales relativos")
-    st.dataframe(df)
+from servicios.jugadores import reemplazar_ids_por_nombres, cargar_diccionario_jugadores
+from interfaz.visualizaciones_metricas import (
+    mostrar_potencia, mostrar_ritmo, mostrar_cambios,
+    mostrar_aceleraciones, mostrar_umbral_est, mostrar_umbral_rel
+)
 
 def mostrar_metricas(resultados):
-    if 'potencia' in resultados:
-        mostrar_potencia(resultados['potencia'])
-    if 'ritmo' in resultados:
-        mostrar_ritmo(resultados['ritmo'])
-    if 'cambios' in resultados:
-        mostrar_cambios(resultados['cambios'])
-    if 'aceleraciones' in resultados:
-        mostrar_aceleraciones(resultados['aceleraciones'])
-    if 'umbral_est' in resultados:
-        mostrar_umbral_est(resultados['umbral_est'])
-    if 'umbral_rel' in resultados:
-        mostrar_umbral_rel(resultados['umbral_rel'])
+    dicc = cargar_diccionario_jugadores()
 
+    funciones_metrica = {
+        'potencia': mostrar_potencia,
+        'ritmo': mostrar_ritmo,
+        'cambios': mostrar_cambios,
+        'aceleraciones': mostrar_aceleraciones,
+        'umbral_est': mostrar_umbral_est,
+        'umbral_rel': mostrar_umbral_rel
+    }
+
+    for clave, funcion in funciones_metrica.items():
+        if clave in resultados:
+            df = reemplazar_ids_por_nombres(resultados[clave], dicc)
+            funcion(df)

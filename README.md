@@ -5,24 +5,28 @@ Este repositorio propone una interfaz gráfica para calcular y visualizar métri
 ## Estructura del proyecto
 
 ```
-analisis-rendimiento-futbol/
+TFG-football-metrics/
 │
-├─ app.py                        
-├─ requirements.txt
+├── app.py
 │
-├─ datos/                       
+├── interfaz/
+│ ├── sidebar.py
+│ ├── visualizaciones.py
+│ └── visualizaciones_metricas.py
 │
-├─ metricas/                      
-│   ├─ potencia_metabolica.py
-│   ├─ ritmo_de_juego.py
-│   ├─ cambio_de_direcciones.py
-│   ├─ distancia_aceleraciones.py
-│   ├─ distancia_umbrales_estandar.py
-│   └─ distancia_umbrales_relativos.py
+├── servicios/
+│ ├── procesa_partidos.py
+│ └── visualizar_partidos.py
 │
-└─ servicios/                    
-    ├─ __init__.py
-    └─ procesa_partidos.py       
+├── utils/
+│ └── formato_columnas.py
+│
+├── config/
+│ ├── equipos.json
+│ └── dicc_jugadores.json
+│
+├── requirements.txt
+└── README.md       
 
 ```
 
