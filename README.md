@@ -30,20 +30,29 @@ analisis-rendimiento-futbol/
 
 > **Requisitos:** Python 3.10 o superior
 
-1. Clona el repositorio:
+
+
+1. Instala IPython:
+
+   ```bash
+   pip install ipython
+
+   ```
+
+2. Clona el repositorio:
 
    ```bash
    git clone https://github.com/roberglz/TFG-football-metrics.git
    cd TFG-football-metrics
    ```
-2. Crea un entorno virtual (OPCIONAL):
+3. Crea un entorno virtual (OPCIONAL):
 
    ```bash
    python -m venv venv
    source venv/bin/activate  # Linux/Mac
    venv\Scripts\activate   # Windows
    ```
-3. Instala todas las dependencias desde `requirements.txt`:
+4. Instala todas las dependencias desde `requirements.txt`:
 
    ```bash
    pip install -r requirements.txt
