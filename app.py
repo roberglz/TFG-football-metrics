@@ -1,7 +1,9 @@
 import streamlit as st
 from interfaz.sidebar import construir_sidebar
-from interfaz.visualizaciones import mostrar_metricas
+from interfaz.visualizaciones import mostrar_metricas,mostrar_evolucion
 from servicios.procesa_partidos import cargar_partido, calcular_metricas
+from servicios.estudiar_evolucion import metricas_evolucion
+
 # (la importación de funciones individuales queda pendiente)
 
 # Configuración de la página
@@ -15,6 +17,7 @@ st.title("TFG-FOOTBALL-METRICS")
     pulsa_calcular_encuentro,
     id_jugador_seleccionado,
     metrica_jugador_seleccionada,
+    grupo_metrica_jugador_seleccionado,
     pulsa_evolucion,
 ) = construir_sidebar()
 
@@ -41,4 +44,8 @@ if pulsa_evolucion:
         st.warning("¡Seleccione una metrica!")
     
     else:
+        st.info("Estudiando evolución")
+        resultados_evol = metricas_evolucion(id_jugador_seleccionado,metrica_jugador_seleccionada,grupo_metrica_jugador_seleccionado)
+        st.info("Estudio finalizado con éxito")
+        mostrar_evolucion(resultados_evol,metrica_jugador_seleccionada)
         pass

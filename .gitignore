@@ -3,10 +3,5 @@ metricas/__pycache__/
 servicios/__pycache__/
 interfaz/__pycache__/
 utils/__pycache__/
-config/dicc_jugadores.json
-metricas/colectivas/__pycache__/cambio_de_direcciones.cpython-310.pyc
-metricas/colectivas/__pycache__/distancia_aceleraciones.cpython-310.pyc
-metricas/colectivas/__pycache__/distancia_umbrales_estandar.cpython-310.pyc
-metricas/colectivas/__pycache__/distancia_umbrales_relativos.cpython-310.pyc
-metricas/colectivas/__pycache__/potencia_metabolica.cpython-310.pyc
-metricas/colectivas/__pycache__/ritmo_de_juego.cpython-310.pyc
+metricas/colectivas/__pycache__/
+metricas/individuales/__pycache__/
