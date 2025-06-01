@@ -3,8 +3,8 @@ from interfaz.sidebar import construir_sidebar
 from interfaz.visualizaciones import mostrar_metricas,mostrar_evolucion
 from servicios.procesa_partidos import cargar_partido, calcular_metricas
 from servicios.estudiar_evolucion import metricas_evolucion
+from servicios.grafo_similitud import generar_grafo
 
-# (la importación de funciones individuales queda pendiente)
 
 # Configuración de la página
 st.set_page_config(page_title="App", layout="wide")
@@ -19,6 +19,10 @@ st.title("TFG-FOOTBALL-METRICS")
     metrica_jugador_seleccionada,
     grupo_metrica_jugador_seleccionado,
     pulsa_evolucion,
+    seleccion_jugador_grafo,
+    N_jugadores_cercanos,
+    metricas_grafo,
+    pulsa_generar_grafo
 ) = construir_sidebar()
 
 
@@ -44,8 +48,18 @@ if pulsa_evolucion:
         st.warning("¡Seleccione una metrica!")
     
     else:
-        st.info("Estudiando evolución")
+        st.info("Estudiando evolución...")
         resultados_evol = metricas_evolucion(id_jugador_seleccionado,metrica_jugador_seleccionada,grupo_metrica_jugador_seleccionado)
         st.info("Estudio finalizado con éxito")
         mostrar_evolucion(resultados_evol,metrica_jugador_seleccionada)
         pass
+
+
+
+# -- Generación de grafo de similitud -- 
+if pulsa_generar_grafo:
+    if not metricas_grafo:
+        st.warning("¡Seleccione una o varias metricas!")
+    else:
+        st.info("Generando grafo...")
+        generar_grafo(seleccion_jugador_grafo,metricas_grafo,N_jugadores_cercanos)

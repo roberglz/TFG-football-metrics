@@ -4,3 +4,4 @@ numpy>=1.21
 matplotlib>=3.4
 scipy>=1.7
 scikit-learn>=1.6.1
+altair==5.5.0
