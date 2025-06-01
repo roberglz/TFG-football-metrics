@@ -1,37 +1,41 @@
 import os
 import json
-import re
 
-EQUIPOS_PATH = os.path.join("config", "equipos.json")
+def listar_partidos():
+    base_path = 'datos'  
+    partidos = []
+    
+    # Cargamos el diccionario de abreviaturas a nombres reales
+    with open('config/equipos.json', 'r', encoding='utf-8') as f:
+        equipos = json.load(f)
 
-with open(EQUIPOS_PATH, "r", encoding="utf-8") as f:
-    EQUIPOS = json.load(f)
+    for carpeta in os.listdir(base_path):
+        ruta_partido = os.path.join(base_path, carpeta)
+        if not os.path.isdir(ruta_partido):
+            continue
 
-def traducir_nombre_archivo(nombre_archivo):
-    """
-    Convierte '1 TOT-SOU.jsonl' en '1. Tottenham - Southampton'
-    """
-    nombre_sin_ext = nombre_archivo.replace(".jsonl", "")
-    m = re.match(r"(\d+)\s+([A-Z]{3})-([A-Z]{3})", nombre_sin_ext)
-    if m:
-        jornada, eq1, eq2 = m.groups()
-        nombre_real = f"{jornada}. {EQUIPOS.get(eq1, eq1)} - {EQUIPOS.get(eq2, eq2)}"
-        return nombre_real
-    return nombre_archivo  # Fallback si no cumple el formato
+        # Buscar metadata json dentro de la carpeta del partido
+        archivos = os.listdir(ruta_partido)
+        metadata_file = next((f for f in archivos if f.endswith('_SecondSpectrum_Metadata.json')), None)
+        data_file = next((f for f in archivos if f.endswith('_SecondSpectrum_Data.jsonl')), None)
 
-def listar_partidos(directorio='datos'):
-    """
-    Devuelve lista de partidos disponibles con nombre visible y ruta:
-    [('1. Tottenham - Southampton', 'datos/1 TOT-SOU.jsonl'), ...]
-    """
-    archivos = [f for f in os.listdir(directorio) if f.lower().endswith('.jsonl')]
+        if metadata_file and data_file:
+            metadata_path = os.path.join(ruta_partido, metadata_file)
+            data_path = os.path.join(ruta_partido, data_file)
 
-    def clave_natural(nombre):
-        m = re.match(r"^(\d+)", nombre)
-        return int(m.group(1)) if m else float('inf')
+            try:
+                with open(metadata_path, 'r', encoding='utf-8') as f:
+                    metadata = json.load(f)
+                    descripcion = metadata.get("description", "")  # "BOU - AVL : 2022-8-6"
+                    if " - " in descripcion:
+                        abrevs = descripcion.split(":")[0].strip().split(" - ")
+                        if len(abrevs) == 2:
+                            eq1 = equipos.get(abrevs[0], abrevs[0])
+                            eq2 = equipos.get(abrevs[1], abrevs[1])
+                            nombre_legible = f"{eq1} - {eq2}"
+                            partidos.append((nombre_legible, data_path))
+            except Exception as e:
+                print(f"Error leyendo metadata {metadata_path}: {e}")
+                continue
 
-    archivos_ordenados = sorted(archivos, key=clave_natural)
-    rutas = [os.path.join(directorio, f) for f in archivos_ordenados]
-    nombres_visibles = [traducir_nombre_archivo(f) for f in archivos_ordenados]
-
-    return list(zip(nombres_visibles, rutas))
+    return partidos

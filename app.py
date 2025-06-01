@@ -5,8 +5,8 @@ from servicios.procesa_partidos import cargar_partido, calcular_metricas
 
 # Configuración de la página
 
-st.set_page_config(page_title="Visualizador de métricas físicas", layout="wide")
-st.title("Visualizador de métricas físicas por partido")
+st.set_page_config(page_title="App", layout="wide")
+st.title("TFG-FOOTBALL-METRICS")
 
 
 
