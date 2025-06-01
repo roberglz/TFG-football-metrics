@@ -1,2 +1,7 @@
 datos
 metricas/__pycache__/
+servicios/__pycache__/
+interfaz/__pycache__/
+utils/__pycache__/
+metricas/colectivas/__pycache__/
+metricas/individuales/__pycache__/

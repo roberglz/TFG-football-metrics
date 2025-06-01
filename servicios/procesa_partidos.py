@@ -1,39 +1,21 @@
-import os, json
+import json
 from functools import lru_cache
-import re
 
+from metricas.colectivas.potencia_metabolica import pot_metabolica
+from metricas.colectivas.ritmo_de_juego import ritmo_juego
+from metricas.colectivas.cambio_de_direcciones import cambios_direccion
+from metricas.colectivas.distancia_aceleraciones import dist_aceleraciones
+from metricas.colectivas.distancia_umbrales_estandar import dist_umbrales_estandar
+from metricas.colectivas.distancia_umbrales_relativos import dist_umbrales_relativos
 
-# importamos todas las funciones de métricas
-from metricas.potencia_metabolica       import pot_metabolica
-from metricas.ritmo_de_juego            import ritmo_juego
-from metricas.cambio_de_direcciones     import cambios_direccion
-from metricas.distancia_aceleraciones   import dist_aceleraciones
-from metricas.distancia_umbrales_estandar import dist_umbrales_estandar
-from metricas.distancia_umbrales_relativos import dist_umbrales_relativos
-
-FRAME_STEP = 5      # submuestreo para 5Hz
-FRAME_DURATION = 0.2  # segundos
-
-def listar_partidos(directorio='datos'):
-    """
-    Devuelve la lista de rutas a archivos .jsonl en 'datos/',
-    ordenadas de forma natural según el número de partido al inicio
-    del nombre de fichero.
-    """
-    archivos = [f for f in os.listdir(directorio) if f.lower().endswith('.jsonl')]
-
-    # Orden natural: extraemos el número al principio de cada nombre
-    def clave_natural(nombre_fichero):
-        m = re.match(r'^(\d+)', nombre_fichero)
-        return int(m.group(1)) if m else float('inf')
-
-    archivos_sorted = sorted(archivos, key=clave_natural)
-    return [os.path.join(directorio, f) for f in archivos_sorted]
-
+FRAME_STEP = 5      # frecuencia reducida para submuestreo (25 Hz -> 5 Hz)
+FRAME_DURATION = 0.2
 
 @lru_cache(maxsize=16)
 def cargar_partido(ruta):
-    """Lee un JSONL y devuelve lista de frames submuestra 5Hz."""
+    """
+    Carga un archivo JSONL de tracking con submuestreo a 5 Hz
+    """
     data = []
     with open(ruta, 'r') as f:
         for i, linea in enumerate(f):
@@ -43,10 +25,7 @@ def cargar_partido(ruta):
 
 def calcular_metricas(data, seleccion):
     """
-    Dada una lista de frames y una lista de claves de métricas,
-    devuelve un dict {clave: DataFrame} para cada métrica pedida.
-    Claves válidas: 'potencia', 'ritmo', 'cambios', 'aceleraciones',
-                   'umbral_est', 'umbral_rel'
+    Ejecuta el cálculo de métricas físicas según la selección.
     """
     resultados = {}
     if 'potencia' in seleccion:
