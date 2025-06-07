@@ -7,7 +7,9 @@ from interfaz.visualizaciones_metricas import (
     mostrar_aceleraciones, mostrar_umbral_est, mostrar_umbral_rel
 )
 from utils.agrupacion_metricas import GRUPOS_METRICAS
-
+import matplotlib.pyplot as plt
+import seaborn as sns
+from servicios.clustering import clustering_perfiles
 
 def mostrar_metricas(resultados):
     dicc = cargar_diccionario_jugadores()
@@ -72,3 +74,20 @@ def mostrar_evolucion(resultados, metrica_label_legible):
     st.subheader(f"Evolución de {nombre_legible} a lo largo de los encuentros")
     st.altair_chart(chart, use_container_width=True)
 
+def mostrar_clustering():
+    st.header("Clasificación automática de perfiles físicos (K-Means)")
+
+
+    df_cluster, resumen = clustering_perfiles()
+
+    st.subheader("Visualización 2D de perfiles")
+    fig, ax = plt.subplots()
+    sns.scatterplot(data=df_cluster, x="PCA1", y="PCA2", hue="perfil_fisico", ax=ax, palette="Set2")
+    ax.set_title("Perfiles físicos de jugadores (K-Means + PCA)")
+    st.pyplot(fig)
+
+    st.subheader("Métricas medias por perfil")
+    st.dataframe(resumen.style.format(precision=2))
+
+    st.subheader("Datos con perfil asignado")
+    st.dataframe(df_cluster)

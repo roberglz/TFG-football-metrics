@@ -1,6 +1,6 @@
 import streamlit as st
 from interfaz.sidebar import construir_sidebar
-from interfaz.visualizaciones import mostrar_metricas,mostrar_evolucion
+from interfaz.visualizaciones import mostrar_metricas,mostrar_evolucion,mostrar_clustering
 from servicios.procesa_partidos import cargar_partido, calcular_metricas
 from servicios.estudiar_evolucion import metricas_evolucion
 from servicios.grafo_similitud import generar_grafo
@@ -22,7 +22,8 @@ st.title("TFG-FOOTBALL-METRICS")
     seleccion_jugador_grafo,
     N_jugadores_cercanos,
     metricas_grafo,
-    pulsa_generar_grafo
+    pulsa_generar_grafo,
+    pulsa_clustering
 ) = construir_sidebar()
 
 
@@ -63,3 +64,8 @@ if pulsa_generar_grafo:
     else:
         st.info("Generando grafo...")
         generar_grafo(seleccion_jugador_grafo,metricas_grafo,N_jugadores_cercanos)
+
+
+# -- Clustering -- 
+if pulsa_clustering:
+    mostrar_clustering()
