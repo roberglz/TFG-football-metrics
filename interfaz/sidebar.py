@@ -117,6 +117,25 @@ def construir_sidebar():
 
 
 
+
+    st.sidebar.write("")  # Espacio
+
+
+    # -- 5. Visualización de anomalías físicas --
+    st.sidebar.subheader("5. Visualización de anomalías físicas")
+
+    # Cargamos CSV anotado con nombres
+    df_anomalias = pd.read_csv("config/anomalias.csv")
+    jugadores_anomalos = df_anomalias["Jugador"].unique().tolist()
+
+    jugador_seleccionado_anomalia = st.sidebar.selectbox(
+            "Seleccione un jugador con anomalías:",
+            jugadores_anomalos,
+            key="select_anomalias"
+        )
+
+    visualizar_anomalia = st.sidebar.button("Visualizar anomalías", key="btn_anomalias")
+
     return (
         ruta_encuentro,
         claves_encuentro,
@@ -129,5 +148,7 @@ def construir_sidebar():
         N,
         claves_metricas_csv,
         generar_grafo,
-        ejecutar_clustering
+        ejecutar_clustering,
+        visualizar_anomalia,
+        jugador_seleccionado_anomalia
     )

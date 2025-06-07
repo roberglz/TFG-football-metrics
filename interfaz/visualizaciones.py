@@ -91,3 +91,47 @@ def mostrar_clustering():
 
     st.subheader("Datos con perfil asignado")
     st.dataframe(df_cluster)
+
+
+def mostrar_anomalias(nombre_jugador):
+    # Cargar el CSV con anotaciones
+    df = pd.read_csv("config/anomalias.csv")
+
+    # Lista de métricas numéricas
+    metricas = [col for col in df.columns if col not in ['Jugador', 'partido', 'anómalo']]
+    df[metricas] = df[metricas].apply(pd.to_numeric, errors='coerce')  # Forzar tipo numérico
+
+    # Media y desviación estándar global
+    media_global = df[metricas].mean()
+    std_global = df[metricas].std()
+    jugador_df = df[df["Jugador"] == nombre_jugador].copy()
+    jugador_df = jugador_df.sort_values("partido")
+
+    if jugador_df.empty:
+        st.warning(f"No hay datos para el jugador {nombre_jugador}")
+        return
+
+    df_anomalo = jugador_df[jugador_df["anómalo"] == -1]
+    if df_anomalo.empty:
+        st.info(f"Jugador {nombre_jugador} no tiene partidos anómalos.")
+        return
+
+    for _, row in df_anomalo.iterrows():
+        partido = row["partido"]
+        st.subheader(f"🔍 Partido anómalo detectado: {partido}")
+
+        z_scores = (row[metricas] - media_global) / std_global
+    
+
+        # Mostrar gráfico
+        fig, ax = plt.subplots(figsize=(12, 6))
+        ax.bar(metricas, z_scores, color='tab:blue', alpha=0.7)
+        ax.axhline(y=0, color='black', linestyle='--')
+        ax.axhline(y=1.75, color='red', linestyle=':', label='Z = ±1.75')
+        ax.axhline(y=-1.75, color='red', linestyle=':')
+        ax.set_xticklabels(metricas, rotation=45, ha='right')
+        ax.set_title(f"Z-score de métricas - Partido anómalo: {partido}")
+        ax.set_ylabel("Z-score")
+        ax.legend()
+        ax.grid(True)
+        st.pyplot(fig)

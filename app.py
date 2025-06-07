@@ -1,6 +1,6 @@
 import streamlit as st
 from interfaz.sidebar import construir_sidebar
-from interfaz.visualizaciones import mostrar_metricas,mostrar_evolucion,mostrar_clustering
+from interfaz.visualizaciones import mostrar_metricas,mostrar_evolucion,mostrar_clustering,mostrar_anomalias
 from servicios.procesa_partidos import cargar_partido, calcular_metricas
 from servicios.estudiar_evolucion import metricas_evolucion
 from servicios.grafo_similitud import generar_grafo
@@ -23,7 +23,9 @@ st.title("TFG-FOOTBALL-METRICS")
     N_jugadores_cercanos,
     metricas_grafo,
     pulsa_generar_grafo,
-    pulsa_clustering
+    pulsa_clustering,
+    pulsa_anomalias,
+    id_jugador_anomalia,
 ) = construir_sidebar()
 
 
@@ -69,3 +71,13 @@ if pulsa_generar_grafo:
 # -- Clustering -- 
 if pulsa_clustering:
     mostrar_clustering()
+
+
+# -- Visualización de anomalías físicas --
+if pulsa_anomalias:
+    if not id_jugador_anomalia:
+        st.warning("¡Seleccione un jugador con anomalías!")
+    else:
+        st.info("Visualizando anomalías...")
+        mostrar_anomalias(id_jugador_anomalia)
+        st.success(f"Anomalías del jugador {id_jugador_anomalia} visualizadas correctamente.")

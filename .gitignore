@@ -5,3 +5,4 @@ interfaz/__pycache__/
 utils/__pycache__/
 metricas/colectivas/__pycache__/
 metricas/individuales/__pycache__/
+.vscode/
