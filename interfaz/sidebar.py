@@ -6,7 +6,6 @@ from utils.agrupacion_metricas import GRUPOS_METRICAS
 from utils.metricas_seleccionadas import METRICAS_DISPLAY
 
 def construir_sidebar():
-    st.sidebar.header("Opciones disponibles:")
 
     # -- 1. Cálculo por encuentro --
     st.sidebar.subheader("1. Cálculo de métricas físicas por encuentro")
