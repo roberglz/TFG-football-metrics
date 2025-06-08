@@ -8,6 +8,8 @@ Este repositorio presenta una aplicación interactiva desarrollada en Python con
 TFG-football-metrics/
 │
 ├── app.py
+├── requirements.txt
+├── README.md
 │
 ├── interfaz/
 │   ├── sidebar.py
@@ -55,9 +57,6 @@ TFG-football-metrics/
 │   └── metricas_con_nombres.csv
 │
 ├── datos/   ← Carpeta opcional, no incluida por motivos de confidencialidad y tamaño.
-│
-├── requirements.txt
-└── README.md
 ```
 
 ## Instalación
