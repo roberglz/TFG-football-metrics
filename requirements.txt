@@ -1,4 +1,4 @@
-iphyton==8.15.0
+ipython==8.15.0
 streamlit==1.45.1
 pandas==2.1.1
 numpy==1.26.0
