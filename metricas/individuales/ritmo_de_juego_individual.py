@@ -41,11 +41,11 @@ def ritmo_juego_individual(data, player_id, frame_duration):
         current_period = frame.get('period')
         previous_period = prev_frame.get('period')
 
-        # Saltar si hay cambio de periodo
+        # Salta si hay cambio de periodo
         if current_period != previous_period:
             continue
 
-        # Buscar al jugador en el frame actual
+        # Busca al jugador en el frame actual
         found = False
         for p in frame['homePlayers'] + frame['awayPlayers']:
             if p['playerId'] == player_id:
@@ -60,7 +60,7 @@ def ritmo_juego_individual(data, player_id, frame_duration):
         if not found:
             continue
 
-    # 2) Si no hay datos, devolvemos ceros
+    # 2) Si no hay datos, devuelve ceros
     if len(x_coords) < 1:
         row = {
             'playerId': player_id,
@@ -75,7 +75,7 @@ def ritmo_juego_individual(data, player_id, frame_duration):
         }
         return pd.DataFrame([row])
 
-    # 3) Suavizar si hay >= 3 muestras
+    # 3) Suaviza si hay >= 3 muestras
     x_arr = np.array(x_coords)
     y_arr = np.array(y_coords)
     speeds_arr = np.array(speeds)
@@ -89,7 +89,7 @@ def ritmo_juego_individual(data, player_id, frame_duration):
         y_smooth = y_arr
         speeds_smooth = speeds_arr
 
-    # 4) Calcular distancias totales y por categoría de velocidad
+    # 4) Calcula distancias totales y por categoría de velocidad
     total_distance = 0.0
     walking_distance = 0.0
     jogging_distance = 0.0
@@ -109,7 +109,7 @@ def ritmo_juego_individual(data, player_id, frame_duration):
         # Velocidad suavizada en m/s → km/h
         velocity_kmh = speeds_smooth[i] * 3.6
 
-        # Clasificar
+        # Clasifica
         if velocity_kmh < 7:
             walking_distance += distance
         elif velocity_kmh <= 15:
@@ -123,7 +123,7 @@ def ritmo_juego_individual(data, player_id, frame_duration):
         else:
             very_high_speed_distance += distance
 
-    # 5) Calcular tiempo de juego en minutos (solo para los frames capturados)
+    # 5) Calcula tiempo de juego en minutos 
     playing_time_seconds = len(x_coords) * frame_duration
     playing_time_minutes = playing_time_seconds / 60 if playing_time_seconds > 0 else 0.0
 

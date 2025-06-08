@@ -94,7 +94,7 @@ def metricas_evolucion(player_id, metrica_seleccionada, grupo_metrica):
     elif grupo_metrica == "Umbrales relativos":
         return recorrer_partidos(dist_umbrales_relativos_individual, player_id, metrica_clave)
 
-    elif grupo_metrica == "Metabolicas":
+    elif grupo_metrica == "Metabólicas":
         return recorrer_partidos(pot_metabolica_individual, player_id, metrica_clave)
 
     elif grupo_metrica == "Ritmo de juego":

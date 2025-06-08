@@ -12,7 +12,7 @@ def construir_sidebar():
     st.sidebar.subheader("1. Cálculo de métricas físicas por encuentro")
     lista_partidos = listar_partidos()
     opciones = {nombre_legible: ruta for nombre_legible, ruta in lista_partidos}
-    seleccion_partido = st.sidebar.selectbox("Selecciona un partido:", list(opciones.keys()))
+    seleccion_partido = st.sidebar.selectbox("Seleccione un partido:", list(opciones.keys()))
     ruta_encuentro = opciones.get(seleccion_partido)
 
     metricas_grupo = {

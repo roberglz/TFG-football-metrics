@@ -1,6 +1,5 @@
 import json
-import os
-import pandas as pd
+
 
 def cargar_diccionario_jugadores(ruta='config/dicc_jugadores.json'):
     with open(ruta, 'r', encoding='utf-8') as f:

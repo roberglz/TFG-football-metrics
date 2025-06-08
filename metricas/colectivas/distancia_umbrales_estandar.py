@@ -1,9 +1,6 @@
-import os
-import json
 import math
 import pandas as pd
 import numpy as np
-from scipy.spatial.distance import cosine
 import math
 from scipy.signal import savgol_filter
 
@@ -113,98 +110,3 @@ def dist_umbrales_estandar(data, frame_duration):
 
 
 
-
-
-
-
-
-
-
-def calcular_metricas_por_partes(data, frame_duration):
-    """
-    Calcula las métricas de aceleración por cada período del partido.
-    """
-    period_metrics = {}
-
-    # Agrupar datos por período
-    period_data = {}
-    for frame in data:
-        period = frame.get('period', 1)  # Asume período 1 si no está definido
-        if period not in period_data:
-            period_data[period] = []
-        period_data[period].append(frame)
-
-    # Calcular métricas por cada período
-    for period, frames in period_data.items():
-        print(f"Calculando métricas para el período {period}")
-        period_metrics[period] = calcular_metricas(frames, frame_duration)
-
-    return period_metrics
-
-
-
-
-def calcular_metricas_por_intervalo(data, frame_duration, intervalo_min=5):
-    """
-    Calcula las métricas de aceleración en intervalos de tiempo definidos.
-    """
-    interval_metrics = {}
-
-    # Verificar si hay una variable de tiempo; si no, generar timestamps
-    for i, frame in enumerate(data):
-        if 'time' not in frame:
-            frame['time'] = i * frame_duration  # Genera timestamp basado en la frecuencia
-
-    # Agrupar datos por período e intervalo de tiempo
-    interval_data = {}
-    for frame in data:
-
-        timestamp = frame['time']  # Ahora siempre tendrá un valor correcto
-        interval = (timestamp // (intervalo_min * 60)) + 1
-
-        key = interval
-        if key not in interval_data:
-            interval_data[key] = []
-        interval_data[key].append(frame)
-
-    print(f"Se encontraron {len(interval_data)} intervalos.")
-
-    # Calcular métricas por cada intervalo
-    for  interval, frames in interval_data.items():
-        print(f"Calculando métricas para el intervalo {interval}")
-        interval_metrics[interval] = calcular_metricas(frames, frame_duration)
-
-    return interval_metrics
-
-
-
-
-
-
-
-
-"""
-
-# AQUÍ SERÍA PARA COMPARAR ENTRE PARTES
-metricas_por_partes = calcular_metricas_por_partes(data_5hz, 0.2)
-
-# Mostrar resultados por partes
-for period, df in metricas_por_partes.items():
-    print(f"\nMétricas para la parte {period}:")
-    display(df)
-
-
-
-
-
-
-
-# AQUÍ SERÍA PARA OBTENER LOS FRAGMENTOS DE 5 MIN PARA 5HZ
-
-
-metricas_por_intervalo = calcular_metricas_por_intervalo(data_5hz, 0.2, 5) # 5 MINUTOS
-
-# Mostrar resultados por intervalo
-for interval, df in metricas_por_intervalo.items():
-    print(f"\n📊 Métricas para el intervalo {interval}:")
-    display(df)  # Asegura que todas las métricas sean visibles """

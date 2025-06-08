@@ -1,5 +1,3 @@
-import pandas as pd
-
 from .ritmo_de_juego import ritmo_juego
 from .distancia_aceleraciones import dist_aceleraciones
 from .distancia_umbrales_estandar import dist_umbrales_estandar
@@ -7,17 +5,17 @@ from .distancia_umbrales_relativos import dist_umbrales_relativos
 
 
 def metricas_seleccionadas(data, frame_duration, min_minutes=70):
-    # Calcular métricas por jugador
+    # Calcula métricas por jugador
     df_ritmo = ritmo_juego(data, frame_duration)
     df_acc = dist_aceleraciones(data, frame_duration)
     df_umbral_est = dist_umbrales_estandar(data, frame_duration)
     df_umbral_rel = dist_umbrales_relativos(data, frame_duration)
 
-    # Filtrar por tiempo mínimo jugado
+    # Filtra por tiempo mínimo jugado
     df_ritmo = df_ritmo[df_ritmo['playingTime'] >= min_minutes].copy()
     df_ritmo.drop(columns=['playingTime'], inplace=True, errors='ignore')
 
-    # Renombrar columnas para evitar conflictos
+    # Renombra columnas para evitar conflictos
     df_ritmo = df_ritmo.rename(columns={
         'walkingRhythm': 'walkingRhythm_ritmo',
         'joggingRhythm': 'joggingRhythm_ritmo',
@@ -50,7 +48,7 @@ def metricas_seleccionadas(data, frame_duration, min_minutes=70):
         'esfuerzos_above_95_percent': 'esfuerzos_above_95_percent_umbral_rel'
     })
 
-    # Combinar métricas por playerId
+    # Combina métricas por playerId
     df = df_ritmo.merge(df_acc, on='playerId', how='inner')
     df = df.merge(df_umbral_est, on='playerId', how='inner')
     df = df.merge(df_umbral_rel, on='playerId', how='inner')
