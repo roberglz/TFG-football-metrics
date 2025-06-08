@@ -6,7 +6,8 @@ from interfaz.visualizaciones import (
 )
 from servicios.procesa_partidos import cargar_partido, calcular_metricas
 from servicios.estudiar_evolucion import metricas_evolucion
-from interfaz.paginas import mostrar_portada, mostrar_explicacion  # Importadas
+from interfaz.paginas import mostrar_portada, mostrar_explicacion
+from servicios.visualizar_partidos import hay_datos_suficientes  # Importación añadida
 
 # Configuración de la página
 st.set_page_config(page_title="TFG Football Metrics", layout="wide")
@@ -44,7 +45,9 @@ mostrar_explicacion()
 # ------------------- CÁLCULO DE MÉTRICAS -------------------
 if pulsa_calcular_encuentro:
     st.subheader("📌 Cálculo de métricas por encuentro")
-    if not ruta_seleccionada:
+    if not hay_datos_suficientes():
+        st.warning("No hay suficientes partidos disponibles para realizar el análisis.")
+    elif not ruta_seleccionada:
         st.warning("¡Seleccione un partido!")
     elif not grupo_metricas_seleccionado:
         st.warning("¡Seleccione al menos un grupo de métricas!")
@@ -59,7 +62,9 @@ if pulsa_calcular_encuentro:
 # ------------------- EVOLUCIÓN -------------------
 if pulsa_evolucion:
     st.subheader("📈 Evolución de un jugador")
-    if not metrica_jugador_seleccionada:
+    if not hay_datos_suficientes():
+        st.warning("No hay suficientes partidos disponibles para estudiar la evolución del jugador.")
+    elif not metrica_jugador_seleccionada:
         st.warning("¡Seleccione una métrica!")
     else:
         info = st.empty()

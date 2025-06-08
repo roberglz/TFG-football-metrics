@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from servicios.visualizar_partidos import listar_partidos
+from servicios.visualizar_partidos import listar_partidos,hay_datos_suficientes
 from servicios.jugadores import cargar_diccionario_jugadores
 from utils.agrupacion_metricas import GRUPOS_METRICAS
 from utils.metricas_seleccionadas import METRICAS_DISPLAY
@@ -10,10 +10,6 @@ def construir_sidebar():
 
     # -- 1. Cálculo por encuentro --
     st.sidebar.subheader("1. Cálculo de métricas físicas por encuentro")
-    lista_partidos = listar_partidos()
-    opciones = {nombre_legible: ruta for nombre_legible, ruta in lista_partidos}
-    seleccion_partido = st.sidebar.selectbox("Seleccione un partido:", list(opciones.keys()))
-    ruta_encuentro = opciones.get(seleccion_partido)
 
     metricas_grupo = {
         "Variables metabólicas": "potencia",
@@ -23,15 +19,34 @@ def construir_sidebar():
         "Distancias umbral estándar": "umbral_est",
         "Distancias umbral relativo": "umbral_rel"
     }
-    seleccion_encuentro = st.sidebar.multiselect(
-        "Seleccione métricas por encuentro:",
-        list(metricas_grupo.keys()),
-        key="encuentro"
-    )
-    claves_encuentro = [metricas_grupo[m] for m in seleccion_encuentro]
-    calcular_encuentro = st.sidebar.button("Calcular", key="btn_encuentro")
+
+    if not hay_datos_suficientes():
+        st.sidebar.warning("No hay datos disponibles.")
+        seleccion_partido = st.sidebar.selectbox("Seleccione un partido:", ["(sin partidos disponibles)"], index=0, disabled=True)
+        ruta_encuentro = None
+        seleccion_encuentro = st.sidebar.multiselect(
+            "Seleccione métricas por encuentro:",
+            list(metricas_grupo.keys()),
+            key="encuentro"
+        )
+        claves_encuentro = []
+        calcular_encuentro = False
+    else:
+        lista_partidos = listar_partidos()
+        opciones = {nombre_legible: ruta for nombre_legible, ruta in lista_partidos}
+        seleccion_partido = st.sidebar.selectbox("Seleccione un partido:", list(opciones.keys()))
+        ruta_encuentro = opciones.get(seleccion_partido)
+
+        seleccion_encuentro = st.sidebar.multiselect(
+            "Seleccione métricas por encuentro:",
+            list(metricas_grupo.keys()),
+            key="encuentro"
+        )
+        claves_encuentro = [metricas_grupo[m] for m in seleccion_encuentro]
+        calcular_encuentro = st.sidebar.button("Calcular", key="btn_encuentro")
 
     st.sidebar.write("")  # Espacio
+
 
 
 

@@ -1,7 +1,6 @@
 # Visualizador de métricas físicas 🧠
 
-Este repositorio propone una interfaz gráfica para calcular y visualizar métricas físicas de partidos de fútbol, utilizando datos de tracking y funciones de análisis en Python.
-*PENDIENTE DE ACTUALIZAR*
+Este repositorio presenta una aplicación interactiva desarrollada en Python con Streamlit, orientada al análisis del rendimiento físico en fútbol mediante el cálculo y la visualización de métricas avanzadas extraídas de datos de tracking. La herramienta permite explorar dinámicamente información individual y colectiva de los jugadores, facilitando el estudio de patrones físicos, la detección de anomalías y la evolución del rendimiento a lo largo del tiempo.
 
 ## Estructura del proyecto
 
@@ -11,53 +10,76 @@ TFG-football-metrics/
 ├── app.py
 │
 ├── interfaz/
-│ ├── sidebar.py
-│ ├── visualizaciones.py
-│ └── visualizaciones_metricas.py
+│   ├── sidebar.py
+│   ├── paginas.py
+│   ├── visualizaciones.py
+│   ├── visualizaciones_metricas.py
+│   └── imagenes/
+│       └── portada.jpg
 │
 ├── servicios/
-│ ├── procesa_partidos.py
-│ └── visualizar_partidos.py
+│   ├── clustering.py
+│   ├── estudiar_evolucion.py
+│   ├── grafo_similitud.py
+│   ├── jugadores.py
+│   ├── procesa_partidos.py
+│   └── visualizar_partidos.py
+│
+├── metricas/
+│   ├── colectivas/
+│   │   ├── cambio_de_direcciones.py
+│   │   ├── distancia_aceleraciones.py
+│   │   ├── distancia_umbrales_estandar.py
+│   │   ├── distancia_umbrales_relativos.py
+│   │   ├── metricas_seleccionadas.py
+│   │   ├── potencia_metabolica.py
+│   │   └── ritmo_de_juego.py
+│   └── individuales/
+│       ├── cambio_de_direcciones_individual.py
+│       ├── distancia_aceleraciones_individual.py
+│       ├── distancia_umbrales_estandar_individual.py
+│       ├── distancia_umbrales_relativos_individual.py
+│       ├── potencia_metabolica_individual.py
+│       └── ritmo_de_juego_individual.py
 │
 ├── utils/
-│ └── formato_columnas.py
+│   ├── agrupacion_metricas.py
+│   ├── formato_columnas.py
+│   └── metricas_seleccionadas.py
 │
 ├── config/
-│ ├── equipos.json
-│ └── dicc_jugadores.json
+│   ├── equipos.json
+│   ├── dicc_jugadores.json
+│   ├── unidades_metricas.json
+│   ├── anomalias.csv
+│   └── metricas_con_nombres.csv
+│
+├── datos/   ← Carpeta opcional, no incluida por motivos de confidencialidad y tamaño.
 │
 ├── requirements.txt
-└── README.md       
-
+└── README.md
 ```
 
 ## Instalación
 
-> **Requisitos:** Python 3.10 o superior
+> **Requisitos:** Python 3.10.7 o superior
 
-
-
-1. Instala IPython:
-
-   ```bash
-   pip install ipython
-
-   ```
-
-2. Clona el repositorio:
+1. Clona el repositorio:
 
    ```bash
    git clone https://github.com/roberglz/TFG-football-metrics.git
    cd TFG-football-metrics
    ```
-3. Crea un entorno virtual (OPCIONAL):
+
+2. Crea un entorno virtual (opcional pero recomendado):
 
    ```bash
    python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   venv\Scripts\activate   # Windows
+   source venv/bin/activate      # Linux/Mac
+   venv\Scripts\activate         # Windows
    ```
-4. Instala todas las dependencias desde `requirements.txt`:
+
+3. Instala todas las dependencias:
 
    ```bash
    pip install -r requirements.txt
@@ -65,12 +87,12 @@ TFG-football-metrics/
 
 ## Uso
 
-1. Ejecuta la aplicación Streamlit:
+Ejecuta la aplicación con:
 
-   ```bash
-   streamlit run app.py
-   ```
+```bash
+streamlit run app.py
+```
 
 ---
 
-> **Nota**: Todos los imports de librerías externas se gestionan a través de `requirements.txt`. Asegúrate de instalarlo antes de ejecutar la aplicación.
+> **Nota**: Todos los imports de librerías externas están gestionados en `requirements.txt`. Asegúrate de instalarlo antes de ejecutar la aplicación.
