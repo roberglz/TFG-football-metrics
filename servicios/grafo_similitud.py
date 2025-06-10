@@ -1,6 +1,4 @@
 import pandas as pd
-import networkx as nx
-import matplotlib.pyplot as plt
 import streamlit as st
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import pairwise_distances
@@ -42,35 +40,4 @@ def generar_grafo(jugador_base, metricas_seleccionadas, N):
     # Filtrar los N más cercanos, excluyendo jugador_base
     df_vecinos = df_norm[df_norm["Jugador"] != jugador_base].nsmallest(N, "distancia")
 
-    # Crear grafo
-    G = nx.Graph()
-    G.add_node(jugador_base)
-
-    for _, row in df_vecinos.iterrows():
-        jugador_similar = row["Jugador"]
-        G.add_node(jugador_similar)
-        G.add_edge(jugador_base, jugador_similar)
-
-    # Dibujar grafo en un Figure de Matplotlib
-    fig, ax = plt.subplots(figsize=(10, 8))
-    pos = nx.spring_layout(G, seed=42)
-    nx.draw(
-        G,
-        pos,
-        ax=ax,
-        with_labels=True,
-        node_color="skyblue",
-        edge_color="gray",
-        font_size=8
-    )
-
-    ax.set_title(
-        f"{N} jugadores más similares a {jugador_base}\n"
-        f"según las métricas seleccionadas",
-        pad=20
-    )
-    ax.axis("off")
-    plt.tight_layout()
-
-    # Mostrar grafo en Streamlit
-    st.pyplot(fig)
+    return df_vecinos

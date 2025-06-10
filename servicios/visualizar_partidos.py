@@ -39,3 +39,40 @@ def listar_partidos():
                 continue
 
     return partidos
+
+import os
+
+import os
+
+def hay_datos_suficientes(min_partidos=3):
+    """
+    Verifica si existen al menos `min_partidos` carpetas válidas con los archivos requeridos.
+
+    Args:
+        min_partidos (int): Número mínimo de partidos necesarios.
+
+    Returns:
+        bool: True si hay al menos `min_partidos` partidos válidos, False en caso contrario.
+    """
+    base_path = 'datos'
+
+    if not os.path.exists(base_path) or not os.path.isdir(base_path):
+        return False
+
+    contador = 0
+
+    for carpeta in os.listdir(base_path):
+        ruta_partido = os.path.join(base_path, carpeta)
+        if not os.path.isdir(ruta_partido):
+            continue
+
+        archivos = os.listdir(ruta_partido)
+        metadata_file = next((f for f in archivos if f.endswith('_SecondSpectrum_Metadata.json')), None)
+        data_file = next((f for f in archivos if f.endswith('_SecondSpectrum_Data.jsonl')), None)
+
+        if metadata_file and data_file:
+            contador += 1
+            if contador >= min_partidos:
+                return True
+
+    return False

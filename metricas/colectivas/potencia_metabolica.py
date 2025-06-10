@@ -1,9 +1,6 @@
-import os
-import json
 import math
 import pandas as pd
-import numpy as np
-from scipy.signal import savgol_filter
+
 
 
 
@@ -33,7 +30,7 @@ def pot_metabolica(data, frame_duration):
 
 
 
-      # Inicializar métricas para el jugador si no existe:
+      # Inicializa métricas para el jugador si no existe:
       if player_id not in player_metrics:
         player_metrics[player_id] = {
             'potencia_metabolica_total': 0,
@@ -57,7 +54,7 @@ def pot_metabolica(data, frame_duration):
       potencia_metabolica = C1 + C2 * velocidad + C3 * velocidad ** 3 + aceleracion * (0.43 * velocidad + 0.32 * velocidad ** 2 + 0.008 * velocidad ** 3)
 
 
-      # Calcular la distancia desde la posición anterior
+      # Calcula la distancia desde la posición anterior
       distance = 0
       if player_metrics[player_id]['previous_position'] is not None:
             previous_pos = player_metrics[player_id]['previous_position']
@@ -85,7 +82,7 @@ def pot_metabolica(data, frame_duration):
 
 
 
-  # Calcular Power Metabolic AVG
+  # Calcula Power Metabolic AVG
   for player_id, metrics in player_metrics.items():
     metrics['Power_Metabolic_AVG'] = metrics['potencia_metabolica_total'] / metrics['num_frames']
 

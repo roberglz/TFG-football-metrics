@@ -1,8 +1,3 @@
-from IPython import get_ipython
-from IPython.display import display
-
-import os
-import json
 import math
 import pandas as pd
 from scipy.signal import savgol_filter

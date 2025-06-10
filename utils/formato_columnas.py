@@ -13,7 +13,8 @@ def añadir_unidades_columnas(df):
         ("acc", "m/s²"),
         ("HMLD", "W/kg"),
         ("AVG", "W/kg"),
-        ("HMLe", "(high metabolic load efforts)")
+        ("HMLe", "(high metabolic load efforts)"),
+        ("minutes", "min"),
     ]
 
     nuevas_columnas = []
