@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from servicios.procesa_partidos import cargar_partido, calcular_metricas
 
 # Configuración
-RUTA_DATOS = "C:/Users/rober/Desktop/UNIVERSIDAD/TFG/code/TFG-football-metrics\datos"
+RUTA_DATOS = ""
 NUM_PARTIDOS = 1
 UMBRAL = 0.75
 

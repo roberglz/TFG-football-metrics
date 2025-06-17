@@ -4,7 +4,7 @@ import pandas as pd
 from servicios.procesa_partidos import cargar_partido, calcular_metricas
 
 # Ruta local al directorio que contiene las carpetas de los partidos
-RUTA_DATOS = "C:/Users/rober/Desktop/UNIVERSIDAD/TFG/code/TFG-football-metrics\datos"
+RUTA_DATOS = ""
 NUM_PARTIDOS = 40
 
 # Métricas a calcular
