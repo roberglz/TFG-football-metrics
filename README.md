@@ -57,6 +57,7 @@ TFG-football-metrics/
 │   └── metricas_con_nombres.csv
 │
 ├── datos/   ← Carpeta opcional, no incluida por motivos de confidencialidad y tamaño.
+├── estudios/ ← Scripts auxiliares previos, utilizados durante el desarrollo.
 ```
 
 ## Instalación
