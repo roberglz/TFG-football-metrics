@@ -86,10 +86,6 @@ def mostrar_clustering():
     st.subheader("Métricas medias por perfil")
     st.dataframe(resumen.style.format(precision=2), use_container_width=True)
 
-    st.subheader("Datos con perfil asignado")
-    st.dataframe(df_cluster, use_container_width=True)
-
-
 def mostrar_grafo(jugador_base, metricas_grafo, N):
     df_vecinos = generar_grafo(jugador_base, metricas_grafo, N)
 

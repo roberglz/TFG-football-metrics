@@ -5,7 +5,8 @@ from sklearn.decomposition import PCA
 
 def clustering_perfiles(k: int = 3):
 
-    df = pd.read_csv("C:/Users/rober/Desktop/UNIVERSIDAD/TFG/code/TFG-football-metrics/config/metricas_con_nombres.csv")  
+    csv_path = "config/metricas_con_nombres.csv"
+    df = pd.read_csv(csv_path)  
     
     columnas_metricas = df.columns[1:]  # asume que la primera columna es 'Jugador'
     df_metricas = df[columnas_metricas]
