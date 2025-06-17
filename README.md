@@ -94,4 +94,5 @@ streamlit run app.py
 
 ---
 
-> **Nota**: Todos los imports de librerías externas están gestionados en `requirements.txt`. Asegúrate de instalarlo antes de ejecutar la aplicación.
+> **Nota**: Todos los imports de librerías externas están gestionados en `requirements.txt`. Asegúrate de instalarlo antes de ejecutar la aplicación.  
+> **Importante**: Para que la aplicación funcione correctamente, es necesario disponer de la carpeta `/datos` con el dataset utilizado en el proyecto. Sin ella, no será posible calcular métricas ni realizar el estudio de la evolución individual.
