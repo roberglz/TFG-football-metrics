@@ -1,6 +1,6 @@
-# Visualizador de métricas físicas 🧠
+# Physical Metrics Visualizer 🧠
 
-Este repositorio presenta una aplicación interactiva desarrollada en Python con Streamlit, orientada al análisis del rendimiento físico en fútbol mediante el cálculo y la visualización de métricas avanzadas extraídas de datos de tracking. La herramienta permite explorar dinámicamente información individual y colectiva de los jugadores, facilitando el estudio de patrones físicos, la detección de anomalías y la evolución del rendimiento a lo largo del tiempo.
+This repository presents an interactive application developed in Python with Streamlit, focused on analyzing physical performance in football through the calculation and visualization of advanced metrics extracted from tracking data. The tool allows dynamic exploration of both individual and collective player information, facilitating the study of physical patterns, anomaly detection, and performance evolution over time.
 
 ## Estructura del proyecto
 
@@ -56,22 +56,22 @@ TFG-football-metrics/
 │   ├── anomalias.csv
 │   └── metricas_con_nombres.csv
 │
-├── datos/   ← Carpeta opcional, no incluida por motivos de confidencialidad y tamaño.
-├── estudios/ ← Scripts auxiliares previos, utilizados durante el desarrollo.
+├── datos/   ← Optional folder, not included due to confidentiality and size.
+├── estudios/ ← Auxiliary scripts used during development.
 ```
 
-## Instalación
+## Installation
 
-> **Requisitos:** Python 3.10.7 o superior
+> **Requirements:** Python 3.10.7 or higher
 
-1. Clona el repositorio:
+1. Clone the repository:
 
    ```bash
    git clone https://github.com/roberglz/TFG-football-metrics.git
    cd TFG-football-metrics
    ```
 
-2. Crea un entorno virtual (opcional pero recomendado):
+2. Create a virtual environment (optional but recommended):
 
    ```bash
    python -m venv venv
@@ -79,15 +79,15 @@ TFG-football-metrics/
    venv\Scripts\activate         # Windows
    ```
 
-3. Instala todas las dependencias:
+3. Install all dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-## Uso
+## Usage
 
-Ejecuta la aplicación con:
+Run the application with:
 
 ```bash
 streamlit run app.py
@@ -95,5 +95,5 @@ streamlit run app.py
 
 ---
 
-> **Nota**: Todos los imports de librerías externas están gestionados en `requirements.txt`. Asegúrate de instalarlo antes de ejecutar la aplicación.  
-> **Importante**: Para que la aplicación funcione correctamente, es necesario disponer de la carpeta `/datos` con el dataset utilizado en el proyecto. Sin ella, no será posible calcular métricas ni realizar el estudio de la evolución individual.
+> **Note**: All external library imports are managed in `requirements.txt`. Make sure to install it before running the application.  
+> **Important**: To ensure proper functionality, you must have the `/datos` folder with the dataset used in the project. Without it, metrics cannot be calculated and individual evolution analysis will not be possible.
